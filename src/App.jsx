@@ -1,89 +1,119 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import backendSchema from "./data/schema.json"
 import backendExercises from "./data/exercises.json"
-import SelectMenu from "./components/SelectMenu"
+import {SelectMenu as SelectMenu} from "./components/index.jsx"
 
 function App() {
+	const [exos, setExos] = useState([])
+	// Getting the list of available options inside each search-type toggle
+	const primaryMusclesOptions = backendSchema.properties.primaryMuscles;
+	const levelsOptions = backendSchema.properties.level;
+	const forcesOptions = backendSchema.properties.force;
+	const categoriesOptions = backendSchema.properties.category;
+	const equipmentsOptions = backendSchema.properties.equipment;
 
-	// Getting the primaryMuscles Data into an Array
-	const primMusclArray = backendSchema.properties.primaryMuscles;
-
-	// Getting levels Data into an Array
-	const levelsArray = backendSchema.properties.level;
-
-	// Getting forces  Data into an Array
-	const forcesArray = backendSchema.properties.force;
-
-	// Getting categories Data into an Array
-	const categoriesArray = backendSchema.properties.category;
-
-	// Getting the Equipments Data into an Array
-	const equipmentsArray = backendSchema.properties.equipment;
-
-	const [searchParams, setSearchParams] = useState({
-		primMuscle: undefined,
+	const searchParams = useRef({
+		primaryMuscles: undefined,
 		level: undefined,
 		force: undefined,
 		category: undefined,
 		equipment: undefined
 	})
 
-	const exercise = backendExercises[0]
-	function handleClick(event) {
-		const searchParams = {
-			primMuscle: '',
-			level: '',
-			force: '',
-			category: '',
-			equipment: ''
-		}
+	function searchFunction(event) {
+		// Getting the seach parameters that the user selected (including the undefined ones (that the user did not select))
+		const searchParameters = searchParams.current
+		// Filtering only the parameters that the user selected ( removing the undefined ones )
+		const validSearchParams = Object.entries(searchParameters).filter(([key, value]) => value !== undefined).reduce((obj, [key, value]) => {
+			obj[key] = value
+			return obj
+		}, {})
+		// Turning the valid selected options into an Array ( it was an object before )
+		const searchParametersArray = Object.entries(validSearchParams)
+
+		// Starting to make the Exercises HTML based on the search parameters
+		const exercisesJsx = backendExercises.map((exercise) => {
+			// Initializing a variable that help you check is an exercises is similar to the selected seach parameters
+
+			// Checking inside the search parameters this Exercise if it suits the selected params
+			// for Each parameter selected we check if it is inside the exercise data
+			const similarsArray = searchParametersArray.map(([key, value]) => {
+				// if the parameter data inside the exercise is inside an array
+				// Example : if we try to check the primary muscles
+				// there might be multiple primary muscles inside this exercise
+				// if its an array then we check if the selected primary muscle in options is inside of the primMuscles inside the exercise data
+				if (Array.isArray((exercise[key]))) {
+					if ((exercise[key].find((element, index) => element === value)) !== undefined) {
+						//isSimilar = true;
+						return true
+					} else return false
+				// Else if it is not an array we just compare the values
+				} else if (value === exercise[key]) {
+					return true
+				} else return false;
+			});
+
+			// we check if all the parameters are inside the exercise data ( the similarArray contain only true values )
+			// If we found all the data similar
+			const isSimilar = (similarsArray.find(value => value === false)) === undefined ? true : false ;
+			if (isSimilar) {
+				return (
+					<div key={exercise["id"]} className='w-5/12 p-4 rounded-xl bg-slate-500 text-white'>
+						<h1 className='text-3xl font-bold'>{exercise.name}</h1>
+						<p className='text-lg'>{exercise.equipment}</p>
+						<p className='text-lg'>{exercise.primaryMuscles}</p>
+						<p className='text-sm'>{exercise.instructions}</p>
+					</div>
+				)
+			} else {
+				return null
+			}
+		})
+		const validExercisesJsx = exercisesJsx.filter(value => value !== null)
+		setExos(validExercisesJsx)
 	}
 	return (
 		<div className='flex flex-col justify-center items-center h-full'>
 			<div className='grid grid-cols-2 gap-2 w-3/6'>
 				<SelectMenu
-					placeholder={primMusclArray.name}
-					name="equipment"
-					optionsArray={primMusclArray.items.enum}
-					searchParams={[searchParams, setSearchParams]}
+					placeholder={primaryMusclesOptions.name}
+					name="primaryMuscles"
+					optionsArray={primaryMusclesOptions.items.enum}
+					searchParams={searchParams}
 				/>
 				<SelectMenu
-					placeholder={levelsArray.name}
+					placeholder={levelsOptions.name}
 					name="level"
-					optionsArray={levelsArray.enum}
-					searchParams={[searchParams, setSearchParams]}
+					optionsArray={levelsOptions.enum}
+					searchParams={searchParams}
 				/>
 				<SelectMenu
-					placeholder={forcesArray.name}
+					placeholder={forcesOptions.name}
 					name="force"
-					optionsArray={forcesArray.enum}
-					searchParams={[searchParams, setSearchParams]}
+					optionsArray={forcesOptions.enum}
+					searchParams={searchParams}
 				/>
 				<SelectMenu
-					placeholder={categoriesArray.name}
+					placeholder={categoriesOptions.name}
 					name="category"
-					optionsArray={categoriesArray.enum}
-					searchParams={[searchParams, setSearchParams]}
+					optionsArray={categoriesOptions.enum}
+					searchParams={searchParams}
 				/>
 				<SelectMenu
-					placeholder={equipmentsArray.name}
+					placeholder={equipmentsOptions.name}
 					name="equipment"
-					optionsArray={equipmentsArray.enum}
-					searchParams={[searchParams, setSearchParams]}
+					optionsArray={equipmentsOptions.enum}
+					searchParams={searchParams}
 				/>
 			</div>
 			<button
 				className='p-1 mt-2 text-sm border-2 border-black w-3/6'
-				onClick={handleClick}
+				onClick={searchFunction}
 			>Search</button>
-			<div className='w-5/12 p-4 rounded-xl bg-slate-500 text-white'>
-				<h1 className='text-3xl font-bold'>{exercise.name}</h1>
-				<p className='text-lg'>{exercise.equipment}</p>
-				<p className='text-lg'>{exercise.primaryMuscles}</p>
-				<p className='text-sm'>{exercise.instructions}</p>
-			</div>
 
+
+			{exos}
 		</div>
 	)
 }
