@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import backendSchema from "./data/schema.json"
 import backendExercises from "./data/exercises.json"
-import {SelectMenu as SelectMenu} from "./components/index.jsx"
+import { SelectMenu as SelectMenu } from "./components/index.jsx"
+import { ExerciseBigContainer as ExerciseBigContainer } from "./components/index.jsx"
 
 function App() {
 	const [exos, setExos] = useState([])
@@ -48,7 +49,7 @@ function App() {
 						//isSimilar = true;
 						return true
 					} else return false
-				// Else if it is not an array we just compare the values
+					// Else if it is not an array we just compare the values
 				} else if (value === exercise[key]) {
 					return true
 				} else return false;
@@ -56,15 +57,10 @@ function App() {
 
 			// we check if all the parameters are inside the exercise data ( the similarArray contain only true values )
 			// If we found all the data similar
-			const isSimilar = (similarsArray.find(value => value === false)) === undefined ? true : false ;
+			const isSimilar = (similarsArray.find(value => value === false)) === undefined ? true : false;
 			if (isSimilar) {
 				return (
-					<div key={exercise["id"]} className='w-5/12 p-4 rounded-xl bg-slate-500 text-white'>
-						<h1 className='text-3xl font-bold'>{exercise.name}</h1>
-						<p className='text-lg'>{exercise.equipment}</p>
-						<p className='text-lg'>{exercise.primaryMuscles}</p>
-						<p className='text-sm'>{exercise.instructions}</p>
-					</div>
+					<ExerciseBigContainer key={exercise.id} props={{ ...exercise }} />
 				)
 			} else {
 				return null
@@ -74,46 +70,50 @@ function App() {
 		setExos(validExercisesJsx)
 	}
 	return (
-		<div className='flex flex-col justify-center items-center h-full'>
-			<div className='grid grid-cols-2 gap-2 w-3/6'>
-				<SelectMenu
-					placeholder={primaryMusclesOptions.name}
-					name="primaryMuscles"
-					optionsArray={primaryMusclesOptions.items.enum}
-					searchParams={searchParams}
-				/>
-				<SelectMenu
-					placeholder={levelsOptions.name}
-					name="level"
-					optionsArray={levelsOptions.enum}
-					searchParams={searchParams}
-				/>
-				<SelectMenu
-					placeholder={forcesOptions.name}
-					name="force"
-					optionsArray={forcesOptions.enum}
-					searchParams={searchParams}
-				/>
-				<SelectMenu
-					placeholder={categoriesOptions.name}
-					name="category"
-					optionsArray={categoriesOptions.enum}
-					searchParams={searchParams}
-				/>
-				<SelectMenu
-					placeholder={equipmentsOptions.name}
-					name="equipment"
-					optionsArray={equipmentsOptions.enum}
-					searchParams={searchParams}
-				/>
+		<div className='w-full flex flex-col items-center'>
+			<div className='w-3/6 pt-8'>
+				<div className='grid grid-cols-2 gap-2'>
+					<SelectMenu
+						placeholder={primaryMusclesOptions.name}
+						name="primaryMuscles"
+						optionsArray={primaryMusclesOptions.items.enum}
+						searchParams={searchParams}
+					/>
+					<SelectMenu
+						placeholder={levelsOptions.name}
+						name="level"
+						optionsArray={levelsOptions.enum}
+						searchParams={searchParams}
+					/>
+					<SelectMenu
+						placeholder={forcesOptions.name}
+						name="force"
+						optionsArray={forcesOptions.enum}
+						searchParams={searchParams}
+					/>
+					<SelectMenu
+						placeholder={categoriesOptions.name}
+						name="category"
+						optionsArray={categoriesOptions.enum}
+						searchParams={searchParams}
+					/>
+					<SelectMenu
+						placeholder={equipmentsOptions.name}
+						name="equipment"
+						optionsArray={equipmentsOptions.enum}
+						searchParams={searchParams}
+					/>
+				</div>
+				<button
+					className='p-1 mt-2 text-sm border-2 border-black w-full'
+					onClick={searchFunction}
+				>Search</button>
 			</div>
-			<button
-				className='p-1 mt-2 text-sm border-2 border-black w-3/6'
-				onClick={searchFunction}
-			>Search</button>
 
 
-			{exos}
+			<div className='grid  grid-cols-4 gap-4 p-8'>
+				{exos}
+			</div>
 		</div>
 	)
 }

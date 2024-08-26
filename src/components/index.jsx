@@ -1,3 +1,7 @@
-import selectMenu from './SelectMenus/SelectMenu'
+import SelectMenu from './SelectMenus/SelectMenu'
+import ExerciseBigContainer from './Exercises/ExerciseBigContainer'
 
-export const SelectMenu = selectMenu
+
+
+
+export {SelectMenu,ExerciseBigContainer}

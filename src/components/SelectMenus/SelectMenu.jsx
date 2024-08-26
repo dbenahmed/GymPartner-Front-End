@@ -18,14 +18,14 @@ export default function SelectMenu({ searchParams, placeholder, name, optionsArr
       const value = event.target.value
       searchParams.current = {
          ...searchParams.current,
-         [name]: value
+         [name]: value === "undefined" ? undefined : value
       }
    }
    return (
       <div className="flex flex-col">
          <label htmlFor={name}></label>
          <select onChange={handleChange} className="border-2 border-black p-1 text-sm" name={name} id={name}>
-            <option hidden value="">{placeholder}</option>
+            <option value="undefined">{placeholder}</option>
             {optionsHTML}
          </select>
       </div>
