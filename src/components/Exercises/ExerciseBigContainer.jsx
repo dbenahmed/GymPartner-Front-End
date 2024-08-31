@@ -1,4 +1,4 @@
-import wordsToUpperCase from "../../functions/wordsToUpperCase"
+import wordsToUpperCase from "../../utils/wordsToUpperCase"
 
 export default function ExerciseBigContainer({ props }) {
    const { name } = props
@@ -21,7 +21,6 @@ export default function ExerciseBigContainer({ props }) {
       return jsx
    }
 
-   console.log(equipment)
    return (
       <div className="flex flex-col w-full h-full p-4 rounded-xl bg-slate-500 gap-4">
          <div className=" h-1/3 w-full">
