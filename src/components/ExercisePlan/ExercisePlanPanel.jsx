@@ -4,7 +4,7 @@ export default function ExercisePlanPanel({ props }) {
    const backendExercises = fetchBackendExercises()
    const backendSchema = fetchBackendSchema()
 
-   const exerciseData = backendExercises.find((data) => data.id === props.exerciseId)
+   const exerciseData = backendExercises.find((data) => data.id === props.exerciseInfosDatabaseId)
    const repsString = props.reps.join(', ')
    return (
       <div className='bg-graycolor p-3'>
