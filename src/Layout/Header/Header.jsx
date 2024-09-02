@@ -1,5 +1,6 @@
 import logo from '../../assets/images/logo.png'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { Button } from '../../components/index.jsx'
 
 export default function Header() {
    return (
@@ -12,13 +13,15 @@ export default function Header() {
          </div>
          <nav className='font-medium flex gap-4 hover:'>
             <Link to='/'>
-               <button className='hover:bg-whitecolor border-2 border-greycolor p-2 pl-4 pr-3 rounded-lg'>
+               <Button secondary={true}>
                   Workouts Page
-               </button></Link>
+               </Button>
+            </Link>
             <Link to='/plan'>
-               <button className='hover:bg-whitecolor border-2 border-greycolor p-2 pl-4 pr-3 rounded-lg'>
+               <Button secondary={true}>
                   Plan Page
-               </button></Link>
+               </Button>
+            </Link>
          </nav>
       </div>
    )

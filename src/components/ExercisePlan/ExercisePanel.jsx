@@ -1,6 +1,6 @@
 import { fetchBackendExercises, fetchBackendSchema } from "../../utils/fetchBackend"
 
-export default function ExercisePlanPanel({ props }) {
+export default function ExercisePanel({ props }) {
    const backendExercises = fetchBackendExercises()
    const backendSchema = fetchBackendSchema()
 

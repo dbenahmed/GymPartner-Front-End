@@ -11,7 +11,6 @@ export class User {
          {
             id: `${uuidv4()}`,
             exerciseInfosDatabaseId,
-            split,
             weight,
             unit,
             reps,
