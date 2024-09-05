@@ -9,8 +9,12 @@ import ExerciseMenu from './ExercisePlan/ExercisesMenu'
 import Plan from './ExercisePlan/Plan'
 import ToggleBetweenOptions from './DesignSystem/ToggleBetweenOptions'
 import RepsInput from './ExercisePlan/RepsInput'
+import Loader from './Loader'
+import Error from './Error'
 
-export { ToggleBetweenOptions, Input, IconButton, Button, SelectMenu, ExerciseBigContainer }
+
+
+export { Error, Loader, ToggleBetweenOptions, Input, IconButton, Button, SelectMenu, ExerciseBigContainer }
 Plan.ExercisePanel = ExercisePanel
 Plan.FoundExercise = FoundExercise
 Plan.FoundExercise.ExerciseMenu = ExerciseMenu

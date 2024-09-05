@@ -7,7 +7,8 @@ import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStora
 export const planExercisesContext = createContext()
 
 export default function Plan() {
-
+   
+   // importing backend Data
    const backendExercises = fetchBackendExercises()
    const backendSchema = fetchBackendSchema()
 

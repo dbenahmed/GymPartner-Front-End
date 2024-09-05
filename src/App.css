@@ -8,7 +8,14 @@
    font-family: "Poppins", sans-serif;
    font-style: normal;
 }
-
+/* body {
+   display: flex;
+   flex-direction: column;
+   height:90vh;
+}
+#root {
+   flex: 1;
+} */
 .ubuntu {
    font-family: "Ubuntu", sans-serif;
 }

@@ -1,20 +1,14 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
-import { PlanPage, WorkoutsPage } from './pages/index.jsx'
-import { Header } from './Layout/index.jsx'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import App from './App.jsx'
+
 
 
 
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
-		<BrowserRouter>
-			<Header />
-			<Routes>
-				<Route path="/" element={<WorkoutsPage />} />
-				<Route path="/plan" element={<PlanPage />} />
-			</Routes>
-		</BrowserRouter>
+		<App />
 	</StrictMode>,
 )

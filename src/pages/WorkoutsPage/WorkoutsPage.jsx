@@ -1,12 +1,19 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import backendSchema from "../../data/schema.json"
-import backendExercises from "../../data/exercises.json"
 import { SelectMenu, Button } from "../../components/index.jsx"
 import { ExerciseBigContainer as ExerciseBigContainer } from "../../components/index.jsx"
 import searchForExercises from '../../utils/searchForExercises.jsx'
+import { Link, useLoaderData, useSearchParams } from 'react-router-dom'
+
+export function exercisesPageLoader() {
+	
+}
 
 export default function WorkoutsPage() {
 	const [exos, setExos] = useState([])
+
+	const [urlSearchParameters, setUrlSearchParameters] = useSearchParams()
+	console.log(urlSearchParameters);
 	// Getting the list of available options inside each search-type toggle
 	const primaryMusclesOptions = backendSchema.properties.primaryMuscles;
 	const levelsOptions = backendSchema.properties.level;
@@ -14,18 +21,19 @@ export default function WorkoutsPage() {
 	const categoriesOptions = backendSchema.properties.category;
 	const equipmentsOptions = backendSchema.properties.equipment;
 
+	const loader = useLoaderData()
+
 	const searchParams = useRef({
-		primaryMuscles: undefined,
-		level: undefined,
-		force: undefined,
-		category: undefined,
-		equipment: undefined
+
 	})
 
 	function searchFunction(event) {
 
 		const searchParameters = searchParams.current
 		const exercises = searchForExercises(searchParameters)
+		setUrlSearchParameters(searchParameters)
+		console.log(urlSearchParameters);
+
 		const exercisesJsx = exercises.map(exercise => {
 			return <ExerciseBigContainer key={exercise.id} props={{ ...exercise }} />
 		})
@@ -35,6 +43,9 @@ export default function WorkoutsPage() {
 	return (
 		<div className='w-full flex flex-col items-center'>
 			<div className='w-3/6 pt-8 flex flex-col gap-4'>
+				<Link className='underline text-main underline-offset-8' to={`..`}>
+					<p> Home </p>
+				</Link>
 				<div className='grid grid-cols-2 gap-2'>
 					<SelectMenu
 						placeholder={primaryMusclesOptions.name}

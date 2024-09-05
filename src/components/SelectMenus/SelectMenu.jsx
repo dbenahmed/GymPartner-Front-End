@@ -28,12 +28,22 @@ export default function SelectMenu({
    const secondaryClasses = `${grow ? 'flex-grow' : ''} ${width !== undefined ? `w-${width}` : 'w - fit'} ${height !== undefined ? `-h${height}` : 'h - fit'}  ${size !== undefined ? `text-${size}` : ''} flex items-center justify-center border-main border-2 p-1 pl-4 pr-3 rounded-lg hover:bg-main hover:text-white hover:shadow-md transition-all`
 
 
-   function handleChange(event) {
+   /* function handleChange(event) {
       const value = event.target.value
       searchParams.current = {
          ...searchParams.current,
          [name]: value === "undefined" ? undefined : value
       }
+   } */
+
+   function handleChange(event) {
+      const value = event.target.value
+      value === "undefined" ?
+         delete searchParams.current.name :
+         searchParams.current = {
+            ...searchParams.current,
+            [name]: value
+         }
    }
    return (
       <div className="flex flex-col">
