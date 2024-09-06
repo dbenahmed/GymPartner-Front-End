@@ -4,7 +4,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Link, redirect } from 'react-router-dom';
 
 export async function planPageLoader() {
-   const loggedIn = false;
+   const loggedIn = true;
    if (!loggedIn) {
       return redirect('/login?message=Please Log In')
    }

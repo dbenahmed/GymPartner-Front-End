@@ -13,7 +13,7 @@ export default function ExerciseBigContainer({ props }) {
    const { category } = props
    const { images } = props
    const { id } = props
-   const imageSrc = `/src/data/exercises/${images[0]}`
+   const imageSrc = `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${images[0]}`
 
    function arrayToJsx(array) {
       const jsx = array.map(string => {
@@ -23,7 +23,7 @@ export default function ExerciseBigContainer({ props }) {
    }
 
    return (
-      <Link to={`?${props.id}`}>
+      <Link to={`${props.id}`}>
          <div className="flex flex-col w-full h-full p-4 rounded-xl bg-gradient-to-tr from-main to-blue-500 text-gray-100 gap-4">
             <div className=" h-1/3 w-full">
                <img className="h-full rounded-lg w-full object-cover " src={imageSrc} alt={name} />

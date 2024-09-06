@@ -12,7 +12,8 @@ export default function Input(
       type,
       min,
       max,
-      index
+      index,
+      name
    }
 ) {
 
@@ -25,6 +26,6 @@ export default function Input(
    const primaryClasses = `${width ? `w-${width}` : ''} ${height ? `h-${height}` : ''} border-black border-2 p-3 pt-1 pb-1 rounded-lg  hover:border-main hover:shadow-inner transition-all`
    const secondaryClasses = `${width ? `w-${width}` : ''} ${height ? `h-${height}` : ''} border-main border-2 p-1 pl-4 pr-3 rounded-lg hover:bg-main hover:text-white hover:shadow-md transition-all`
    return (
-      <input id={id} className={`${primaryClasses} flex-grow`} onChange={handleInputChange} type={type ? type : 'text'} min={min} max={max} />
+      <input name={name} id={id} className={`${primaryClasses} flex-grow`} onChange={handleInputChange} type={type ? type : 'text'} min={min} max={max} />
    )
 }

@@ -1,15 +1,33 @@
-import { useSearchParams } from "react-router-dom";
-import { fetchBackendExercises } from "../../utils/fetchBackend"
+import { useLoaderData, useParams } from "react-router-dom";
 
+export async function exerciseInfosPageLoader({ request }) {
+   try {
+      const res = await fetch("/src/data/exercises.json")
+      console.log('fetched');
+      console.log(res);
+      if (res.ok) {
+         const data = await res.json()
+         return data
+      }
+   } catch (error) {
+      console.log(error);
+   }
+}
 
 export default function ExerciseInfosPage() {
-   const exercisesData = fetchBackendExercises();
-   const exercise = exercisesData[0]
+
+   const params = useParams()
+   const id = params.exercise
+
+   const exercisesData = useLoaderData()
+
+   const exercise = exercisesData.find((exo) => exo.id === id)
+
    const imagesSrc = exercise.images.map((img, index) => {
-      return `/src/data/exercises/${img}`
+      return `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${img}`
    })
 
-   
+
 
    return (
       <div className="flex flex-col items-center justify-center h-full mt-5">

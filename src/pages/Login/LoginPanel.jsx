@@ -24,13 +24,18 @@ export default function LoginPanel() {
    }
 
    return (
-      <div className="">
-         {
-            message && <p>Please Log In</p>
-         }
-         <Input name='email' onChange={handleChange} />
-         <Input name='password' onChange={handleChange} />
-         <Button onClick={Submit}>Hello</Button>
+      <div className=" w-full flex flex-col justify-center items-center h-96">
+         <div className="flex flex-col w-2/3 justify-center items-center gap-2">
+            <h1 className="text-2xl font-bold">Login Panel</h1>
+            {
+               message && <p>Please Log In</p>
+            }
+            
+            <Input name='email' onChange={handleChange} />
+            <Input name='password' onChange={handleChange} />
+            <Button onClick={Submit}>Hello</Button>
+         </div>
+
       </div>
    )
 }
