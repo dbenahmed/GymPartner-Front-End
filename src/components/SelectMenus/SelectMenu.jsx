@@ -38,12 +38,16 @@ export default function SelectMenu({
 
    function handleChange(event) {
       const value = event.target.value
-      value === "undefined" ?
-         delete searchParams.current.name :
+      if (value === "undefined") {
+         const newObj = Object.entries(searchParams.current).filter((key) => key[0] !== name).reduce((prev, key) => { return { ...prev, [key[0]]: key[1] } }, {})
+         searchParams.current = newObj
+
+      } else {
          searchParams.current = {
             ...searchParams.current,
             [name]: value
          }
+      }
    }
    return (
       <div className="flex flex-col">

@@ -3,17 +3,11 @@ import backendSchema from "../../data/schema.json"
 import { SelectMenu, Button } from "../../components/index.jsx"
 import { ExerciseBigContainer as ExerciseBigContainer } from "../../components/index.jsx"
 import searchForExercises from '../../utils/searchForExercises.jsx'
-import { Link, useLoaderData, useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
-export function exercisesPageLoader() {
-	
-}
 
 export default function WorkoutsPage() {
 	const [exos, setExos] = useState([])
-
-	const [urlSearchParameters, setUrlSearchParameters] = useSearchParams()
-	console.log(urlSearchParameters);
 	// Getting the list of available options inside each search-type toggle
 	const primaryMusclesOptions = backendSchema.properties.primaryMuscles;
 	const levelsOptions = backendSchema.properties.level;
@@ -21,18 +15,13 @@ export default function WorkoutsPage() {
 	const categoriesOptions = backendSchema.properties.category;
 	const equipmentsOptions = backendSchema.properties.equipment;
 
-	const loader = useLoaderData()
 
 	const searchParams = useRef({
-
 	})
 
 	function searchFunction(event) {
-
 		const searchParameters = searchParams.current
 		const exercises = searchForExercises(searchParameters)
-		setUrlSearchParameters(searchParameters)
-		console.log(urlSearchParameters);
 
 		const exercisesJsx = exercises.map(exercise => {
 			return <ExerciseBigContainer key={exercise.id} props={{ ...exercise }} />

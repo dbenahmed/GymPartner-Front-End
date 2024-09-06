@@ -3,8 +3,8 @@ import { fetchBackendExercises } from "./fetchBackend"
 export default function searchForExercises(props) {
 
    const backendExercises = fetchBackendExercises()
-
    // Getting the seach parameters that the user selected (including the undefined ones (that the user did not select))
+
    const searchParameters = props
    // Filtering only the parameters that the user selected ( removing the undefined ones )
    const validSearchParams = Object.entries(searchParameters).filter(([key, value]) => value !== undefined).reduce((obj, [key, value]) => {

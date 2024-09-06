@@ -3,8 +3,6 @@ import './index.css'
 import { Route, Link, createBrowserRouter, createRoutesFromElements, RouterProvider, Outlet } from 'react-router-dom'
 import { ExerciseInfosPage, Home, LoginPanel, PlanPage, WorkoutsPage } from './pages/index.jsx'
 import { Header } from './Layout/index.jsx'
-import Loader from './components/Loader.jsx'
-import { exercisesPageLoader } from './pages/WorkoutsPage/WorkoutsPage.jsx'
 
 const router = createBrowserRouter(createRoutesFromElements(
 	<Route>
@@ -13,7 +11,7 @@ const router = createBrowserRouter(createRoutesFromElements(
 			<Outlet />
 		</>}>
 			<Route index element={<Home />} />
-			<Route path="exercises" loader={exercisesPageLoader} element={<WorkoutsPage />} />
+			<Route path="exercises" element={<WorkoutsPage />} />
 			<Route path='exercises/exercise' element={<ExerciseInfosPage />} />
 			<Route path="plan" element={<PlanPage />} />
 		</Route >
