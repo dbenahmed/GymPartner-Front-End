@@ -1,3 +1,4 @@
-import Header from "./Header/Header";
+import Header from "../components/Header/Header";
+import RoutesLayout from "./RoutesLayout";
 
-export {Header}
+export { Header, RoutesLayout }
