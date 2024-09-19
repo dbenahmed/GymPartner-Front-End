@@ -4,13 +4,12 @@ export default function searchForExercises(props) {
 
    const backendExercises = fetchBackendExercises()
    // Getting the seach parameters that the user selected (including the undefined ones (that the user did not select))
-
-   const searchParameters = props
+   const validSearchParams = props
    // Filtering only the parameters that the user selected ( removing the undefined ones )
-   const validSearchParams = Object.entries(searchParameters).filter(([key, value]) => value !== undefined).reduce((obj, [key, value]) => {
+   /* const validSearchParams = Object.entries(searchParameters).filter(([key, value]) => value !== undefined).reduce((obj, [key, value]) => {
       obj[key] = value
       return obj
-   }, {})
+   }, {}) */
    // Turning the valid selected options into an Array ( it was an object before )
    const searchParametersArray = Object.entries(validSearchParams)
    // Starting to make the Exercises HTML based on the search parameters

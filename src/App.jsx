@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css'
 import './index.css'
 import { Route, Link, createBrowserRouter, createRoutesFromElements, RouterProvider, Outlet } from 'react-router-dom'
@@ -7,12 +8,13 @@ import { planPageLoader } from './pages/PlanPage/PlanPage.jsx'
 import { loginLoader } from './pages/Login/LoginPanel.jsx'
 import { exerciseInfosPageLoader } from './pages/WorkoutsPage/ExerciseInfosPage.jsx'
 import Error from './components/Error.jsx'
+import { exercisesLoader } from './pages/WorkoutsPage/WorkoutsPage.jsx'
 
 const router = createBrowserRouter(createRoutesFromElements(
 	<Route>
 		<Route path='/' element={<RoutesLayout />}>
 			<Route index element={<Home />} />
-			<Route path="exercises" element={<WorkoutsPage />} />
+			<Route loader={exercisesLoader} path="exercises" element={<WorkoutsPage />} />
 			<Route path='exercises/:exercise' loader={exerciseInfosPageLoader} errorElement={<Error />} element={<ExerciseInfosPage />} />
 			<Route path="login" loader={loginLoader} element={<LoginPanel />} />
 			<Route path="plan" loader={planPageLoader} element={<PlanPage />} />

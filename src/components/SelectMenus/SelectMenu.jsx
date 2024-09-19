@@ -2,13 +2,13 @@ import { useState } from "react";
 
 // This is a menu component
 // Placeholder is the title of the menu
-// searchParams is the state that contains the data of this Menu Items
+// searchParamsData is the state that contains the data of this Menu Items
 // Whenever you select an option from the menu, the corresponding State that contains this value should be inside the seachParams Ref
 // the name is the name of the value that is changing
 // OptionsArray is the array the contain this menu options
 
 export default function SelectMenu({
-   searchParams,
+   searchParamsData,
    placeholder,
    name,
    optionsArray,
@@ -30,8 +30,8 @@ export default function SelectMenu({
 
    /* function handleChange(event) {
       const value = event.target.value
-      searchParams.current = {
-         ...searchParams.current,
+      searchParamsData.current = {
+         ...searchParamsData.current,
          [name]: value === "undefined" ? undefined : value
       }
    } */
@@ -39,12 +39,12 @@ export default function SelectMenu({
    function handleChange(event) {
       const value = event.target.value
       if (value === "undefined") {
-         const newObj = Object.entries(searchParams.current).filter((key) => key[0] !== name).reduce((prev, key) => { return { ...prev, [key[0]]: key[1] } }, {})
-         searchParams.current = newObj
+         const newObj = Object.entries(searchParamsData.current).filter((key) => key[0] !== name).reduce((prev, key) => { return { ...prev, [key[0]]: key[1] } }, {})
+         searchParamsData.current = newObj
 
       } else {
-         searchParams.current = {
-            ...searchParams.current,
+         searchParamsData.current = {
+            ...searchParamsData.current,
             [name]: value
          }
       }

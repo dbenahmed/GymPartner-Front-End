@@ -65,7 +65,7 @@ export default function ExerciseMenu(
    return (
       <div className='fixed bg-black bg-opacity-20 bottom-0 top-0 left-0 right-0 flex items-center justify-center'>
          <div className='p-3 bg-graycolor rounded-lg flex flex-col gap-2 '>
-            <IconButton width={`full`} color='red' onClick={toggleExerciseMenu} >
+            <IconButton width={`full`} fill='white' bgcolor='red' onClick={toggleExerciseMenu} >
                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
             </IconButton>
             <div className='flex flex-col'>

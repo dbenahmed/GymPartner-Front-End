@@ -30,7 +30,7 @@ export default function RepsInput(
    return (
       <div className="flex h-fit gap-1">
          <input id={id} className={`${primaryClasses} flex-grow`} onChange={handleInputChange} type={type ? type : 'text'} min={min} max={max} />
-         <Button ndex={index} primary={true} onClick={handleClick} >
+         <Button index={index} primary={true} onClick={handleClick} >
             <svg fill="white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
          </Button>
       </div >
