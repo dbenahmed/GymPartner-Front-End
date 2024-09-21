@@ -1,28 +1,26 @@
-import { useEffect } from "react"
-import { useRef, useState } from 'react'
+import {  useState } from 'react'
 import backendSchema from "../../data/schema.json"
 import { SelectMenu, Button } from "../../components/index.jsx"
 import { ExerciseBigContainer } from "../../components/index.jsx"
-import searchForExercises from '../../utils/searchForExercises.jsx'
-import { Link, useLoaderData, useNavigation, useSearchParams } from 'react-router-dom'
+import { Link, useLoaderData, useSearchParams } from 'react-router-dom'
 
 
 export const exercisesLoader = async ({ request }) => {
 	try {
 		const url = new URL(request.url)
 		const searchParams = url.searchParams.toString()
-		console.log(`http://localhost:5000/api/v1/exercises?${searchParams}`)
+		if (searchParams === '') {
+			return []
+		}
 		const res = await fetch(`http://localhost:5000/api/v1/exercises?${searchParams}`)
 		const data = await res.json()
 		if (!res.ok) {
 			throw ('Fetch Failed Response is not OK')
 		}
 		const resultExercises = data.response
-		const exercisesJsx = resultExercises.map(exercise => {
-			return <ExerciseBigContainer key={exercise._id} props={{ ...exercise }} />
-		})
-		return exercisesJsx
+		return resultExercises
 	} catch (error) {
+		console.error(error)
 		return []
 	}
 }
@@ -38,21 +36,39 @@ export default function WorkoutsPage() {
 	const equipmentsOptions = backendSchema.properties.equipment;
 	const [searchParameters, setSearchParameters] = useSearchParams()
 
-
-	const searchParamsData = useRef({})
-
-	function searchFunction(event) {
-		const searchParametersData = searchParamsData.current
-		setSearchParameters(searchParametersData)
-		const exercises = searchForExercises(searchParametersData)
-		//console.log(exercises);
-
-		const exercisesJsx = exercises.map(exercise => {
-			return <ExerciseBigContainer key={exercise.id} props={{ ...exercise }} />
-		})
-		setExos(exercisesJsx)
-
+	function handleChange(event) {
+		const value = event.target.value
+		const name = event.target.name
+		console.log(name, value)
+		if (value === "undefined") {
+			const newObj = Object.entries(searchParameters).filter((key) => key[0] !== name).reduce((prev, key) => { return { ...prev, [key[0]]: key[1] } }, {})
+			console.log(newObj)
+			setSearchParameters(newObj)
+		} else {
+			const prev = Object.fromEntries(searchParameters)
+			setSearchParameters({
+				...prev,
+				[name]: value
+			}
+			)
+		}
 	}
+
+
+	async function searchFunction(event) {
+		try {
+			const res = await fetch(`http://localhost:5000/api/v1/exercises?${searchParameters.toString()}`)
+			const data = await res.json()
+			if (!res.ok) {
+				throw ('Fetch Failed Response is not OK')
+			}
+			const resultExercises = data.response
+			setExos(resultExercises)
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
 	return (
 		<div className='w-full flex flex-col items-center'>
 			<div className='w-3/6 pt-8 flex flex-col gap-4'>
@@ -64,35 +80,35 @@ export default function WorkoutsPage() {
 						placeholder={primaryMusclesOptions.name}
 						name="primaryMuscles"
 						optionsArray={primaryMusclesOptions.items.enum}
-						searchParamsData={searchParamsData}
+						onChange={handleChange}
 						text='sm'
 					/>
 					<SelectMenu
 						placeholder={levelsOptions.name}
 						name="level"
 						optionsArray={levelsOptions.enum}
-						searchParamsData={searchParamsData}
+						onChange={handleChange}
 						text='sm'
 					/>
 					<SelectMenu
 						placeholder={forcesOptions.name}
 						name="force"
 						optionsArray={forcesOptions.enum}
-						searchParamsData={searchParamsData}
+						onChange={handleChange}
 						text='sm'
 					/>
 					<SelectMenu
 						placeholder={categoriesOptions.name}
 						name="category"
 						optionsArray={categoriesOptions.enum}
-						searchParamsData={searchParamsData}
+						onChange={handleChange}
 						text='sm'
 					/>
 					<SelectMenu
 						placeholder={equipmentsOptions.name}
 						name="equipment"
 						optionsArray={equipmentsOptions.enum}
-						searchParamsData={searchParamsData}
+						onChange={handleChange}
 						text='sm'
 					/>
 				</div>
@@ -103,7 +119,9 @@ export default function WorkoutsPage() {
 
 
 			<div className='grid  grid-cols-4 gap-4 p-8'>
-				{exos}
+				{exos.map(exercise => {
+					return <ExerciseBigContainer key={exercise._id} props={{ ...exercise }} />
+				})}
 			</div>
 		</div>
 	)
