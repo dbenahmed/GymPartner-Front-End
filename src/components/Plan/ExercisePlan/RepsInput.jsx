@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, IconButton } from "../index"
+import React from "react";
+import { Button } from "../../index"
 
 export default function RepsInput(
    {

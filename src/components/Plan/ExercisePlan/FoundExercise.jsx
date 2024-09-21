@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { Button, IconButton, Input, Plan } from '../../components/index.jsx'
-import { v4 as uuidv4 } from 'uuid';
+import { Button, Plan } from '../../index.jsx'
 
 
 export default function FoundExercise({ exercise, state }) {

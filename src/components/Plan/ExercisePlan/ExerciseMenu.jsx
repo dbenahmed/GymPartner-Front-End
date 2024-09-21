@@ -1,8 +1,7 @@
 import { useContext, useRef, useState } from "react"
-import { Button, IconButton, Input, ToggleBetweenOptions, Plan } from "../index"
-import { planExercisesContext } from "./Plan"
+import { Button, IconButton, Input, ToggleBetweenOptions, Plan } from "../../index"
 import { v4 as uuidv4 } from 'uuid';
-import { saveToLocalStorage } from "../../utils/localStorageUtils";
+import { planExercisesContext } from "../Plan";
 
 
 
@@ -58,7 +57,7 @@ export default function ExerciseMenu(
       })
       setVisibleExerciseMenu(prev => !prev)
       // TODO : Fix This Save to Local Storage
-      saveToLocalStorage(planExos.planExercises.username, planExos.planExercises)
+      //saveToLocalStorage(planExos.planExercises.username, planExos.planExercises)
 
    }
 

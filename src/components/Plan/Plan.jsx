@@ -1,8 +1,8 @@
-import { createContext, useEffect, useRef, useState } from 'react';
+import { createContext, useRef, useState } from 'react';
 import { Button, IconButton } from '../index.jsx'
 import { fetchBackendExercises, fetchBackendSchema } from '../../utils/fetchBackend.jsx';
 import Fuse from 'fuse.js'
-import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorageUtils.js';
+import { loadFromLocalStorage } from '../../utils/localStorageUtils.js';
 export const planExercisesContext = createContext()
 
 export default function Plan() {

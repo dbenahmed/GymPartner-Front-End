@@ -1,5 +1,5 @@
-import { fetchBackendExercises, fetchBackendSchema } from "../../utils/fetchBackend"
-import { IconButton } from "../index"
+import { fetchBackendExercises, fetchBackendSchema } from "../../../utils/fetchBackend"
+import { IconButton } from "../../index"
 
 export default function ExercisePanel({ props }) {
    const backendExercises = fetchBackendExercises()
