@@ -1,4 +1,4 @@
-import React from "react"
+import { useEffect } from "react"
 import { useRef, useState } from 'react'
 import backendSchema from "../../data/schema.json"
 import { SelectMenu, Button } from "../../components/index.jsx"
@@ -28,8 +28,9 @@ export const exercisesLoader = async ({ request }) => {
 }
 
 export default function WorkoutsPage() {
+
 	const [exos, setExos] = useState(useLoaderData())
-	// Getting the list of available options inside each search-type toggle
+
 	const primaryMusclesOptions = backendSchema.properties.primaryMuscles;
 	const levelsOptions = backendSchema.properties.level;
 	const forcesOptions = backendSchema.properties.force;

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { Plan } from '../../components/index.jsx'
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Link, redirect } from 'react-router-dom';
 
 export async function planPageLoader() {
