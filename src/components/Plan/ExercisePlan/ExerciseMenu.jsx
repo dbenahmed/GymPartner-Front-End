@@ -9,16 +9,16 @@ export default function ExerciseMenu(
    {
       toggleExerciseMenu,
       exercise,
-      setVisibleExerciseMenu
+      setVisibleExerciseMenu,
+      databaseId
    }
 ) {
 
-   const planExos = useContext(planExercisesContext)
-   const [weight, setWeight] = useState(undefined)
+   const { planId, collectionId, userId, setPlanExercises, planExercises } = useContext(planExercisesContext)
+   const [weight, setWeight] = useState(10)
    const [unit, setUnit] = useState('kg')
-   const [reps, setReps] = useState([])
+   const [reps, setReps] = useState([1])
    const sets = useRef(reps.length)
-
    function repsChange(value, index) {
       setReps(prev => {
          let newReps = prev.map(val => val)
@@ -42,23 +42,51 @@ export default function ExerciseMenu(
       sets.current = sets.current + 1
    }
 
-   function addToPlan() {
-      planExos.setPlanExercises(prev => {
+   async function addToPlan() {
+      // Update user data instantly before doing the fetch request for better User Experiance
+      const backup = JSON.stringify(planExercises)
+      setPlanExercises(prev => {
          let prevData = JSON.parse(JSON.stringify(prev))
-         prevData.exercises.push({
-            id: `${uuidv4()}`,
-            exerciseInfosDatabaseId: exercise.item.id,
-            weight,
-            unit,
-            reps,
-            sets: sets.current,
+         prevData.push({
+            data: {
+               weight,
+               unit,
+               currentReps: { reps },
+               sets: sets.current,
+            },
+            _id: exercise._id,
+            name: exercise.name
          })
          return prevData
       })
-      setVisibleExerciseMenu(prev => !prev)
-      // TODO : Fix This Save to Local Storage
-      //saveToLocalStorage(planExos.planExercises.username, planExos.planExercises)
 
+      // We do the fetch request
+      const url = `http://localhost:5000/api/v1/users/plans/exercises`
+      const fetchResponse = await fetch(url, {
+         method: 'POST',
+         body: JSON.stringify({
+            databaseId: "",
+            planId: planId,
+            collectionId: collectionId,
+            userId,
+            weight,
+            reps,
+            unit,
+            yesUseSelectedWeights: true,
+         })
+      })
+      if (!fetchResponse.ok) {
+         console.error('ERROR ADDING EXERCISE FETCHING DATA')
+         setPlanExercises(JSON.parse(backup))
+         return null
+      }
+      const response = await fetchResponse.json()
+      if (!response.success) {
+         console.error('error in server adding exercise')
+         setPlanExercises(JSON.parse(backup))
+         return null
+      }
+      setVisibleExerciseMenu(prev => !prev)
    }
 
    return (

@@ -31,7 +31,6 @@ export default function PlanPage() {
       if (activeCollection) {
          const activeCollectionPlanElements = activeCollection.plans.map(plan => {
             //< Plan key={plan._id} collectionId={activeCollection._id} plan={plan._id} planName={plan.planName} exercises={plan.planExercises} />
-            console.log(plan)
             return (
                < Plan key={plan._id} userId={userId} collectionId={activeCollection._id} planId={plan._id} planName={plan.planName} planExercisesArray={plan.planExercises} />
             )
@@ -78,7 +77,6 @@ export default function PlanPage() {
    }
    useEffect(() => {
       func()
-      console.log('reRan')
    }, [searchParams])
 
    /* useEffect(() => {

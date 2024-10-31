@@ -12,11 +12,12 @@ import ExercisePanel from './Plan//ExercisePlan/ExercisePanel'
 import FoundExercise from './Plan/ExercisePlan/FoundExercise'
 import ExerciseMenu from './Plan/ExercisePlan/ExerciseMenu'
 import RepsInput from './Plan/ExercisePlan/RepsInput'
-
+import ExerciseAddingMenu from './Plan/ExercisePlan/ExerciseAddingMenu'
 
 
 export { Header, Error, Loader, ToggleBetweenOptions, Input, IconButton, Button, SelectMenu, ExerciseBigContainer }
 Plan.ExercisePanel = ExercisePanel
+Plan.ExercisesAddingMenu = ExerciseAddingMenu
 Plan.FoundExercise = FoundExercise
 Plan.FoundExercise.ExerciseMenu = ExerciseMenu
 Plan.FoundExercise.ExerciseMenu.RepsInput = RepsInput
